@@ -4,7 +4,8 @@ import random
 
 schermbreedte = 80
 
-
+geselecteerdelijst = ""
+content_list = []
 
 def leeg_scherm():
     os.system('cls')
@@ -53,13 +54,11 @@ def bekijkeenwoordenlijst():
   print_regel("Je wilt een lijst bekijken, je bekijkt nu de geselecteerde lijst")
   print_footer()
   print("")
-  f = open(geselecteerdelijst)
 
-  for line in f:
+  for line in content_list:
     woord1, woord2 = line.strip('\n').split('=')
     print(woord1 + " = " + woord2)
-
-  f.close()
+    
   wait = input("Duw op ENTER als je terug wilt")
   main() 
 
@@ -95,12 +94,8 @@ def selecteeranderelijst():
     a = open("Lijsten.data")
     lijsten = a.read().split("\n")
     print(lijsten)
-    global geselecteerdelijst
     geselecteerdelijst = input("Welke lijst wil je selecteren? ")
     geselecteerdelijst = geselecteerdelijst + ".wrd"
-    global content_list
-    content_list = []
-    
     
     f = open(geselecteerdelijst)
 
@@ -128,7 +123,7 @@ def overhoor():
             print("Jouw antwoord was fout! Het antwoord was: " + woord2)
         continuemetoverhoren = input("Wil je nog een woord doen? Y/N").lower()
         if continuemetoverhoren == "n":
-            break
+            main()
         choice = random.choice(content_list)
         woord1, woord2 = choice.split("=")
      
