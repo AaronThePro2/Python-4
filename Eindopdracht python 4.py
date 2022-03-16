@@ -1,28 +1,35 @@
+#Hier importeer ik alle libaries die ik gebruik
 from asyncore import write
 import os
 import random
 
+#De schermbreedte staat ingesteld op 80
 schermbreedte = 80
 
 
-
+#Als deze functie wordt aangeroepen word de console gecleard
 def leeg_scherm():
     os.system('cls')
 
+#Print de inhoud (string) + zij randen
 def print_regel(inhoud=''):
   print("| {:<76} |".format(inhoud))
-  
+
+#Print een header
 def print_header():
   print("="*schermbreedte)
   print("|" + " "*(schermbreedte - 2) + "|")
 
+#Print een footer
 def print_footer():
   print("|" + " "*(schermbreedte - 2) + "|")
   print("="*schermbreedte)
 
+#Krijgt een bestandnaam binnen en plakt er .wrd achter
 def geef_bestandnaam(lijst):
   return lijst + ".wrd"
 
+#Maakt een nieuwe lijst aan
 def nieuwe_lijst():
   leeg_scherm()
   print_header()
@@ -35,6 +42,7 @@ def nieuwe_lijst():
 
   schrijflijst(lijst, [])
 
+#Selecteer een anderelijst
 def selecteeranderelijst():
     print_header()
     print_regel("Vul de naam van de lijst in om te switchen van lijst")
@@ -46,7 +54,7 @@ def selecteeranderelijst():
     geselecteerdelijst = input("Welke lijst wil je selecteren? ")
     return geselecteerdelijst
     
-
+#Voegt een woord toe aan de geselecteerde lijst
 def voegwoordtoe(lijst):
   leeg_scherm()
   print_header()
@@ -59,7 +67,8 @@ def voegwoordtoe(lijst):
   content_list.append(nieuwwoordinput)
 
   schrijflijst(lijst, content_list)
-  
+
+#Laad een lijst in
 def laadlijst(lijst):
   content_list = []
   bestand = lijst + ".wrd"
@@ -73,6 +82,7 @@ def laadlijst(lijst):
   f.close()
   return content_list
 
+#Schrijft een lijst
 def schrijflijst(lijst, content_list):
   bestand = geef_bestandnaam(lijst)
   f = open(bestand,'w')
@@ -82,6 +92,7 @@ def schrijflijst(lijst, content_list):
      f.write('\n')
   f.close()
 
+#Opent de geslecteerdelijst een toont alle tekst
 def bekijkeenwoordenlijst(lijst):
   leeg_scherm()
   print_header()
@@ -96,6 +107,7 @@ def bekijkeenwoordenlijst(lijst):
     
   wait = input("Duw op ENTER als je terug wilt")
 
+#Verwijderd een woord van de geselecteerdelijst
 def verwijdereenwoord(lijst):
   leeg_scherm()
   print_header()
@@ -108,7 +120,7 @@ def verwijdereenwoord(lijst):
   content_list.remove(woordkeuze)
   schrijflijst(lijst, content_list)
 
-
+#Stopt het programma
 def exitprogram():
   leeg_scherm()
   print_header()
@@ -116,7 +128,7 @@ def exitprogram():
   print_footer()
   wait = input("Duw op ENTER als je het programma wilt afsluiten")
 
-
+#Overhoort de geselecteerdelijst
 def overhoor(lijst):
     leeg_scherm()
     content_list = laadlijst(lijst)
@@ -137,6 +149,7 @@ def overhoor(lijst):
         choice = random.choice(content_list)
         woord1, woord2 = choice.split("=")
 
+#Main function
 def menu():
   geselecteerdelijst = ""
   while True:
@@ -170,6 +183,7 @@ def menu():
       elif answer == "o":
           overhoor(geselecteerdelijst)
 
+#Start function
 def main():
     menu()
 
